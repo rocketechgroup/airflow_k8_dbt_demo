@@ -22,8 +22,8 @@ with DAG(
         tags=['example']
 ) as dag:
     dbt_run = KubernetesPodOperator(
-        namespace="k8-executor",
-        service_account_name="composer",
+        namespace="k8-executor",  # the new namespace you've created in the Workload Identity creation process
+        service_account_name="composer", # the new k8 service account you've created in the Workload Identity creation process
         image="eu.gcr.io/rocketech-de-pgcp-sandbox/airflow-k8-dbt-demo:1.0.1",
         cmds=["bash", "-cx"],
         arguments=["dbt run --project-dir dbt_k8_demo"],
