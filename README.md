@@ -43,3 +43,18 @@ Follow instructions [here](https://cloud.google.com/kubernetes-engine/docs/how-t
 8. Update your Pod spec to schedule the workloads on nodes that use Workload Identity and to use the annotated Kubernetes service account.
 9. Apply the updated configuration to your cluster: kubectl apply -f DEPLOYMENT_FILE
 ```
+
+And this is what I did to the cluster I had for the demo
+```
+kubectl create namespace k8-executor
+
+kubectl create serviceaccount composer --namespace k8-executor
+
+gcloud iam service-accounts add-iam-policy-binding composer@rocketech-de-pgcp-sandbox.iam.gserviceaccount.com \
+    --role roles/iam.workloadIdentityUser \
+    --member "serviceAccount:rocketech-de-pgcp-sandbox.svc.id.goog[k8-executor/composer]"
+
+kubectl annotate serviceaccount composer \
+    --namespace k8-executor \
+    iam.gke.io/gcp-service-account=composer@rocketech-de-pgcp-sandbox.iam.gserviceaccount.com
+```
