@@ -10,3 +10,4 @@ dbt_k8_demo:
       project: rocketech-de-pgcp-sandbox
       threads: 5
       timeout_seconds: 300
+      impersonate_service_account: dbt-user@rocketech-de-pgcp-sandbox.iam.gserviceaccount.com
